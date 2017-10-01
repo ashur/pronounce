@@ -9,6 +9,6 @@
         }
     ],
     "autoload": {
-		"psr-4": { "Pronounce": "src/" }
+		"psr-4": { "Pronounce\\": "src/" }
 	}
 }
