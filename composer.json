@@ -1,0 +1,14 @@
+{
+    "name": "ashur/cmudict-php",
+    "description": "A micro library for searching the CMU Pronouncing Dictionary",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ashur Cabrera",
+            "email": "hello@cabreramade.co",
+        }
+    ],
+    "autoload": {
+		"psr-4": { "Pronounce": "src/" }
+	}
+}
