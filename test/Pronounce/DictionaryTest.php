@@ -95,4 +95,33 @@ class DictionaryTest extends TestCase
 		$testDictFile = dirname( __DIR__ ) . '/fixtures/' . microtime( true );
 		$dictionary = new Dictionary( $testDictFile );
 	}
+
+	public function wordRhymeProvider() : array
+	{
+		return [
+			['fair', 'wear', true],
+			['strict', 'nicked', true],
+
+			['weepy', 'sleepy', true],
+
+			['spoon', 'cartoon', true],
+			['cartoon', 'spoon', true],
+
+			['boot', 'foot', false],
+			['fun', 'funny', false],
+			['naked', 'baked', false],
+		];
+	}
+
+	/**
+	 * @dataProvider	wordRhymeProvider
+	 */
+	public function testWordsDoRhyme( $word1, $word2, $shouldRhyme )
+	{
+		$dictionary = new Dictionary();
+
+		$doesRhyme = $dictionary->wordsDoRhyme( $word1, $word2 );
+
+		$this->assertEquals( $shouldRhyme, $doesRhyme );
+	}
 }
