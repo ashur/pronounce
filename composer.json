@@ -1,5 +1,5 @@
 {
-    "name": "ashur/cmudict-php",
+    "name": "ashur/pronounce",
     "description": "A micro library for searching the CMU Pronouncing Dictionary",
     "type": "library",
     "authors": [
