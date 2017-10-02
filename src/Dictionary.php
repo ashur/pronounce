@@ -127,47 +127,36 @@ class Dictionary
 	 */
 	public function wordsDoRhyme( string $word1, string $word2 ) : bool
 	{
-		$vowelPhonemes = ['AA','AE','AH','AO','AW','AY','EH','ER','EY','IH','IY','OW','OY','UH','UW'];
-
 		$wordsDoRhyme = false;
 
-		$pronunciations1 = $this->getPronunciations( $word1 );
-		$pronunciations2 = $this->getPronunciations( $word2 );
+		$phonemes1 = $this->getPronunciations( $word1 );
+		$phonemes2 = $this->getPronunciations( $word2 );
 
-		foreach( $pronunciations1 as $pronunciation1 )
+		foreach( $phonemes1 as $phoneme1 )
 		{
-			$phonemes1 = explode( ' ', $pronunciation1 );
-			foreach( $phonemes1 as $phoneme1 )
-			{
-				$rootPhoneme1 = substr( $phoneme1, 0, 2 );
-				if( !in_array( $rootPhoneme1, $vowelPhonemes ) )
-				{
-					array_shift( $phonemes1 );
-					continue;
-				}
-				break;
-			}
+			$stressMarker = 1;
 
-			foreach( $pronunciations2 as $pronunciation2 )
+			/* Some words don't have a primary stress, ex., 'a', 'the' */
+			if( substr_count( $phoneme1, 1 ) == 0 )
 			{
-				$phonemes2 = explode( ' ', $pronunciation2 );
+				$stressMarker = 0;
+			}
+			$pattern = "/[AEIOU].{$stressMarker}(\ .*)?$/";
+
+			$didMatch = preg_match( $pattern, $phoneme1, $matches1 );
+			if( $didMatch == 1 )
+			{
 				foreach( $phonemes2 as $phoneme2 )
 				{
-					$rootPhoneme2 = substr( $phoneme2, 0, 2 );
-					if( !in_array( $rootPhoneme2, $vowelPhonemes ) )
+					$didMatch = preg_match( $pattern, $phoneme2, $matches2 );
+					if( $didMatch == 1 )
 					{
-						array_shift( $phonemes2 );
-						continue;
+						if( $matches1[0] == $matches2[0] )
+						{
+							$wordsDoRhyme = true;
+							break 2;
+						}
 					}
-
-					$countPhonemes1 = count( $phonemes1 );
-					$countPhonemes2 = count( $phonemes2 );
-
-					$phonemes1 = array_slice( $phonemes1, -1 * $countPhonemes2 );
-					$phonemes2 = array_slice( $phonemes2, -1 * $countPhonemes1 );
-
-					$wordsDoRhyme = $wordsDoRhyme || ($phonemes1 == $phonemes2);
-					break;
 				}
 			}
 		}

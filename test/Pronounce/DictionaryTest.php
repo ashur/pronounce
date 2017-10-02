@@ -99,17 +99,19 @@ class DictionaryTest extends TestCase
 	public function wordRhymeProvider() : array
 	{
 		return [
+			['a', 'the', true],
+			['why', 'high', true],
 			['fair', 'wear', true],
 			['strict', 'nicked', true],
-
 			['weepy', 'sleepy', true],
-
 			['spoon', 'cartoon', true],
 			['cartoon', 'spoon', true],
+			['balloon', 'baboon', true],
 
 			['boot', 'foot', false],
 			['fun', 'funny', false],
 			['naked', 'baked', false],
+			['happy', 'free', false],
 		];
 	}
 
