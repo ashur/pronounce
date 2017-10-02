@@ -112,6 +112,8 @@ class DictionaryTest extends TestCase
 			['fun', 'funny', false],
 			['naked', 'baked', false],
 			['happy', 'free', false],
+
+			['free', 'free', false]
 		];
 	}
 

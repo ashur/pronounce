@@ -127,6 +127,12 @@ class Dictionary
 	 */
 	public function wordsDoRhyme( string $word1, string $word2 ) : bool
 	{
+		/* A word should not rhyme with itself */
+		if( strtolower( $word1 ) == strtolower( $word2 ) )
+		{
+			return false;
+		}
+
 		$wordsDoRhyme = false;
 
 		$phonemes1 = $this->getPronunciations( $word1 );
